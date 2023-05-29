@@ -75,3 +75,10 @@ async def activevi_(_, message: Message):
             f"**Active Video Calls:-**\n\n{text}",
             disable_web_page_preview=True,
         )
+
+@app.on_message(filters.command("ac", [".", "^", "-", "!", "/"]) & SUDOERS)
+async def activecilik(_, message: Message):
+    ms = len(await get_active_chats())
+    vd = len(await get_active_video_chats())
+    await app.send_message(message.chat.id, 
+        f"❏ 𝗕𝗢𝗧 𝗗𝗜𝗣𝗔𝗞𝗘 𝗨𝗡𝗧𝗨𝗞\n│\n├• 🎧 ᴅᴇᴍᴜs : {ms}\n╰• ɴɢᴇʙᴏᴋᴇᴘ : {vd}")
