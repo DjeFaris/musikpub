@@ -16,6 +16,7 @@ import re
 import subprocess
 import sys
 import traceback
+import shutil
 from inspect import getfullargspec
 from io import StringIO
 from time import time
@@ -223,3 +224,14 @@ async def shellrunner(client, message):
         )
     else:
         await edit_or_reply(message, text="**OUTPUT: **\n`No output`")
+
+
+@app.on_message(filters.command("clean") & SUDOERS)
+async def clean(_, message):
+    dir = "downloads"
+    dir1 = "cache"
+    shutil.rmtree(dir)
+    shutil.rmtree(dir1)
+    os.mkdir(dir)
+    os.mkdir(dir1)
+    await message.reply_text("Successfully cleaned all **temp** dir(s)!")
